@@ -365,8 +365,9 @@ dbutils.fs.unmount("/mnt/mount_name")
 - Re-order the dataframe columns.
 
 
-After cleaning the dataframes, insights can be polled by querying it. See the Databricks notebook for more.
+After cleaning the dataframes, insights can be polled by querying it. See the Databricks notebook for more. Examples are:
 
+![](C:\Users\External\Desktop\Images\Query1.png)
 
 
 # Batch processing: Orchestrating workloads with AWS MWAA
