@@ -314,7 +314,7 @@ The steps are as follows:
  - Check the contents in FileStore, the location where we uploaded the AWS credentials in the last step, by running the following command:
  
 
- "dbutils.fs.ls(“/FileStore/tables”)"
+ `dbutils.fs.ls(“/FileStore/tables”)`
 
 
  The CSV file uploaded earlier should now be inside the FileStore tables folder.
@@ -325,14 +325,17 @@ The steps are as follows:
  - See Databricks(data_from_S3_and_query).ipynb file for details
  - List the tables to obtain AWS credentials file name
  - Read the CSV file to Spark dataframe
- - Extract the access key and secret access key from the Spark dataframe created. The secret access key will be encoded using urllib.parse.quote for security purposes. safe="" means that every character will be encoded."""
+ - Extract the access key and secret access key from the Spark dataframe created. The secret access key will be encoded using urllib.parse.quote for security purposes. `safe=""` means that every character will be encoded.
  See the Databricks notebook.
- - Mount the S3 bucket by passing in the S3 URL and the desired mount name to dbutils.fs.mount().The S3 bucket has the messages from the Kafka topics. Successful mounting of the bucket can be tested.
+ - Mount the S3 bucket by passing in the S3 URL and the desired mount name to `dbutils.fs.mount()`.The S3 bucket has the messages from the Kafka topics. Successful mounting of the bucket can be tested.
 
 
 To check if the S3 bucket was mounted succesfully run the following command:
+
+```
 display(dbutils.fs.ls("/mnt/`bucket_name`/topics"))
 
+```
 
 The bucket is mounted only once. Once mounted it is accessible from Databricks at any time.
 
@@ -342,8 +345,10 @@ Next steps are:
 - Display the dataframes
 - Unmount S3 bucket. To unmount the S3 bucket, run the following code:
 
-
+```
 dbutils.fs.unmount("/mnt/mount_name")
+
+```
 
 
 ## Cleaning the dataframes and sorting columns
@@ -364,7 +369,7 @@ After cleaning the dataframes, insights can be polled by querying it. See the Da
 ![](Query1.png) 
 
 ![](Query_7.png)
-
+<img src = "PINTEREST/Images/Query_7.png" width = "320" height = "150" />
 ## Batch processing: Orchestrating workloads with AWS MWAA
 
 
@@ -396,4 +401,3 @@ As the data is appended to the dataframe, it is presented in a serialized format
 Example of output from streaming data is below:
 
 ![](Geo_data.png) 
-<img src = "images/Geo_data.png" width = "320" height = "150" />
