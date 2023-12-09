@@ -32,8 +32,6 @@ Pinterest uses billions of data points every day to decide how to provide more v
 - For the data, we need two python files, Pinterest events emulators, one for batch processing, written to populate event data in batches from an AWS RDS server and the other for streaming data processing.
 - PySpark 
 PySpark has many dependencies, not only with other Python packages, but also with other modules that are not easily installed using the convenient pip install command. Follow the next steps:
-
-
 - Visit PySpark download page https://spark.apache.org/downloads.html and:
 - Choose latest release
 - Download package locally
@@ -88,7 +86,7 @@ Then
 - The project is completed in VScode, in an environment that is enabled with all dependencies to enable the above listed to function.
 
 
-## Set up AWS account
+### Set up AWS account
 
 
 Set up the required AWS account, python file, and git hub.
@@ -100,7 +98,7 @@ Set up the required AWS account, python file, and git hub.
 
 Caution- Make sure to check you are in the correct region when using a new service while conducting the project
   
-## EC2 Instances
+### EC2 Instances
 An EC2 instance represents a virtual server in the cloud. It is a self-contained unit that includes virtual CPUs, memory, storage, and network interfaces.
 
 ### Set up an EC2 client machine locally.  
@@ -120,7 +118,7 @@ Navigate to the EC2 console and identify the instance with your unique UserId. S
 Follow the `Connect` instructions `(SSH client)` on the AWS EC2 console to do this.
 In order to connect to the IAM authenticated cluster, you will need to install the appropriate packages on your EC2 client machine.
 
-## Set up Apache Kafka on the EC2 instance
+### Set up Apache Kafka on the EC2 instance
 
 
 Step 1:
@@ -176,7 +174,7 @@ Step 4:
 - Configure your Kafka client to use AWS IAM authentication to the cluster. To do this, you will need to modify the client.properties file, inside the kafka_folder/bin directory accordingly.
 
 
-## Create Kafka topics
+### Create Kafka topics
 
 
 Step 1:
@@ -213,7 +211,7 @@ In the create topic Kafka command replace the BootstrapServerString with the val
     - Deliver messages to the Kafka cluster using the API gateway
 
 
-# Batch processing
+## Batch processing
 
 An API is built in Amazon API Gateway that will send data to an S3 bucket. Then Amazon MSK Connect is used to connect MSK clusters to the S3 bucket so that data fromm the custers is saved in the S3 bucket. 
 
@@ -230,7 +228,7 @@ Steps:
 When building the connector, make sure to choose the IAM role used for authentication to the MSK cluster in the Access permissions tab. After building the plugin-connector pair, data passing through the IAM authenticated cluster, will be automatically stored in the designated S3 bucket.
 
 
-## Build an API and a PROXY integration for your API.
+### Build an API and a PROXY integration for your API.
 
 
 Create an API. The API name in this project is my UserId. The next step is to build a PROXY integration for your API.
@@ -240,7 +238,7 @@ On Amazon API Gateway,
 - Deploy the API and make a note of the Invoke URL, you will need it in a later task.
 
 
-## Set up the Kafka REST Proxy integration for your API, set up the Kafka REST Proxy on your EC2 client machine.
+### Set up the Kafka REST Proxy integration for your API, set up the Kafka REST Proxy on your EC2 client machine.
 
 
 - First, download and install the Confluent package for the Kafka REST Proxy on your EC2 client machine.
@@ -248,7 +246,7 @@ On Amazon API Gateway,
 - Start the REST proxy on the EC2 client machine.
 
 
- ## Send data to your API
+ ### Send data to your API
  
  Sending data to the API will send the data to the MSK Cluster using the plugin-connector pair previously created.
 
@@ -268,13 +266,13 @@ Step 3:
 Check if data is getting stored in the S3 bucket. The folder organization here will be topics/<your_UserId>.pin/partition=0/ that your connector creates in the bucket.
 
 
-# Batch processing with Databricks
+## Batch processing with Databricks
 
 
 Databricks is an integrated analytics environment powered by Apache Spark which lets you connect and read from many data sources such as AWS S3, HDFS, MySQL, Cassandra etc. In this project, data is read from an Amazon S3 bucket.
 
 
-## Create an access key and a secret access key for Databricks in AWS
+### Create an access key and a secret access key for Databricks in AWS
 
   - Access the IAM console in your AWS account. 
   - In the IAM console, under Access management click on Users.  
@@ -292,7 +290,7 @@ Databricks is an integrated analytics environment powered by Apache Spark which 
   - On the next page, give the keypair a description and select Create Access Key
   - Click the Download.csv file button to download the credentials you have just created.
 
-## Upload credential csv file to Databricks
+### Upload credential csv file to Databricks
 
 In the Databricks UI, 
  - Click the Data icon and then click Create Table.
@@ -300,7 +298,7 @@ In the Databricks UI,
  The credentials will be uploaded in the following location: /FileStore/tables.
 
 
-#  Batch processing: Spark on Databricks
+##  Batch processing: Spark on Databricks
 
 
 For data to be processed in batches on Databricks, one must mount the S3 bucket on to Databricks filestore. The steps are detailed in the Databricks(data_from_S3_and_query).ipynb file. 
@@ -309,7 +307,7 @@ For data to be processed in batches on Databricks, one must mount the S3 bucket 
 The steps are as follows:
 
 
-## Mount S3 bucket to Databricks
+### Mount S3 bucket to Databricks
 
  - Open a notebook in the Databricks UI, 
  - Select the New icon and then select Notebook. Codes can be written here.
@@ -325,13 +323,11 @@ The steps are as follows:
  - Import the pyspark functions and URL processing libraries 
  - Check tables in filestore to get name of credentials file
  - See Databricks(data_from_S3_and_query).ipynb file for details
-
-
-- List the tables to obtain AWS credentials file name
-- Read the CSV file to Spark dataframe
-- Extract the access key and secret access key from the Spark dataframe created. The secret access key will be encoded using urllib.parse.quote for security purposes. safe="" means that every character will be encoded."""
-See the Databricks notebook.
-- Mount the S3 bucket by passing in the S3 URL and the desired mount name to dbutils.fs.mount().The S3 bucket has the messages from the Kafka topics. Successful mounting of the bucket can be tested.
+ - List the tables to obtain AWS credentials file name
+ - Read the CSV file to Spark dataframe
+ - Extract the access key and secret access key from the Spark dataframe created. The secret access key will be encoded using urllib.parse.quote for security purposes. safe="" means that every character will be encoded."""
+ See the Databricks notebook.
+ - Mount the S3 bucket by passing in the S3 URL and the desired mount name to dbutils.fs.mount().The S3 bucket has the messages from the Kafka topics. Successful mounting of the bucket can be tested.
 
 
 To check if the S3 bucket was mounted succesfully run the following command:
@@ -350,7 +346,7 @@ Next steps are:
 dbutils.fs.unmount("/mnt/mount_name")
 
 
-# Cleaning the dataframes and sorting columns
+## Cleaning the dataframes and sorting columns
 
 
 - Remove duplicates
@@ -369,12 +365,12 @@ After cleaning the dataframes, insights can be polled by querying it. See the Da
 
 ![](Query_7.png)
 
-# Batch processing: Orchestrating workloads with AWS MWAA
+## Batch processing: Orchestrating workloads with AWS MWAA
 
 
 MWAA was used to automate the process of running the batch processing on Databricks. The dag.py file contains Python code for a directed acyclic graph (DAG) that orchestrates the running of the batch processing notebook described above. The file was uploaded to the MWAA environment, where Airflow is used to connect to and run the Databricks notebook at scheduled intervals, in this case daily.
 
-To automate batch processing on Databricks, AWS MWAA (managed Workflows for Apache Airflow) can be used. See the _dag.py file for the program to run this. Steps to do this are:
+To automate batch processing on Databricks, AWS MWAA (managed Workflows for Apache Airflow) can be used. See the dag.py file for the program to run this. Steps to do this are:
 
 
 - Create an API token in Databricks and initialize a connection between MWAA and Databricks.
@@ -383,7 +379,7 @@ To automate batch processing on Databricks, AWS MWAA (managed Workflows for Apac
 - Trigger the DAG you have uploaded in the previous step and check it runs successfully.
 
 
-# Stream processing: AWS Kinesis
+## Stream processing: AWS Kinesis
 
 
 AWS Kinesis can collect streaming data in real time or near real-time. Kinesis allows data processing and analysis as soon as it arrives, giving instant analytical insights. A Kinesis Data Stream is a set of Shards which is a uniquely identified sequence of data records in a stream. To implement it in this project;
@@ -396,3 +392,8 @@ AWS Kinesis can collect streaming data in real time or near real-time. Kinesis a
 As the data is appended to the dataframe, it is presented in a serialized format and can be deserialized using .selectExpr("CAST(data as STRING)"). 
 - Process the dataframes by cleaning them.
 - Extract necessary insights from the cleaned dataframes.
+
+Example of output from streaming data is below:
+
+![](Geo_data.png) 
+<img src = "images/Geo_data.png" width = "320" height = "150" />
