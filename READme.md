@@ -42,7 +42,7 @@ PySpark has many dependencies, not only with other Python packages, but also wit
 - Create a folder (for example spark) in a directory that you know will be safe. ~/ is usually a good option.
 Extract the files from the downloaded file into the created folder. At the time of writing, the last version was Spark 3.1.2, so, in that case, your directory will look like this (in case you are using the same examples):
 
-
+```
 ~/
 
 │
@@ -50,19 +50,20 @@ Extract the files from the downloaded file into the created folder. At the time 
 │   └── spark-3.1.2-bin-hadoop3.2  <--- SPARK_HOME
 │         ├── bin
 │         ├── conf
-│         ├── data
+│         ├── data 
 
+ ```
 
 It is important to set the directory as SPARK_HOME, otherwise, PySpark won't know where to find the corresponding commands. To do so, set it as an environment variable copying the following command in your ~/.bashrc file:
-export SPARK_HOME=<path to your home directory>/spark/spark-3.1.2-bin-hadoop3.2
 
+```export SPARK_HOME=<path to your home directory>/spark/spark-3.1.2-bin-hadoop3.2
+```
 Note: The command above depends on where you extracted the files you downloaded and the version
 Don't skip this step. Having an incorrectly set SPARK_HOME environment variable is the cause of many common issues with Spark.
 Save your ~/.bashrc. You should be able to use PySpark now! If not, try restarting vscode, then try restarting your computer if that doesn't work.
 To check if the installation was successful, you can install findspark (pip install findspark) and run the following:
 
-```
-import findspark
+```import findspark
 
 findspark.init() ```
 
@@ -75,11 +76,9 @@ Next,
 
 to install and check for succesful installation by checking the version with `java -version`.
 
-
+Then
 - Get a Databricks account 
 - The project is completed in VScode, in an environment that is enabled with all dependencies to enable the above listed to function.
-
-## Main 
 
 
 ## Set up AWS account
