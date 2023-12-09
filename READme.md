@@ -1,6 +1,6 @@
 # Pinterest data pipeline
 
-## Table of contents
+### Table of contents
 
 - Introduction
 - Project Brief
@@ -10,15 +10,15 @@
 - File structure of the project 
 - License information
 
-## Introduction
+### Introduction
 
 This is a final project from the AIcore Data engineering programme. The project serves to equip one with essential skills in industry standard tools for building data pipelines. It fills the need to get hands on some infrastructure similar to that which a data engineer would hb find when working at Pinterest. 
 
-## Project Brief
+### Project Brief
 
 Pinterest uses billions of data points every day to decide how to provide more value to their users. This project is a platform for a data engineer to create a system, an emulation of Pinterest data engineering processes to facilitate a data pipeline and data processing for batch and streaming data. It uses some Apache tools and the AWS Cloud infrastructure. 
 
-## Project Requirements
+### Project Requirements
 
 - Git hub
 - Amazon Web Services. AWS services used in the project are:
@@ -29,10 +29,8 @@ Pinterest uses billions of data points every day to decide how to provide more v
 - AWS Managed Apache Airflow
 - AWS Kinesis
 - [Apache Kafka](https://kafka.apache.org/) - From the Kafka [documentation](https://kafka.apache.org/documentation/):
-- For the data, two python files - Two Pinterest events emulators, one for batch processing, written to populate event data in batches from an AWS RDS server and the other for streaming data processing.
-- PySpark
-
-
+- For the data, we need two python files, Pinterest events emulators, one for batch processing, written to populate event data in batches from an AWS RDS server and the other for streaming data processing.
+- PySpark 
 PySpark has many dependencies, not only with other Python packages, but also with other modules that are not easily installed using the convenient pip install command. Follow the next steps:
 
 
@@ -62,8 +60,12 @@ export SPARK_HOME=<path to your home directory>/spark/spark-3.1.2-bin-hadoop3.2
 ```
 Note: The command above depends on where you extracted the files you downloaded and the version
 Don't skip this step. Having an incorrectly set SPARK_HOME environment variable is the cause of many common issues with Spark.
-Save your ~/.bashrc. You should be able to use PySpark now! If not, try restarting vscode, then try restarting your computer if that doesn't work.
-To check if the installation was successful, you can install findspark (pip install findspark) and run the following:
+
+
+Save your ~/.bashrc. You should be able to use PySpark now! If not, try restarting vscode, then try restarting your computer if that doesn't work. To check if the installation was successful, you can install findspark with 
+
+
+`pip install findspark` and run the following:
 
 ```
 import findspark
@@ -107,7 +109,7 @@ An EC2 instance represents a virtual server in the cloud. It is a self-contained
 To do this,
 
 
-1. Create a .pem file locally. Use `touch`, `echo `or `nano` command, depending on your system.
+ - Create a .pem file locally. Use `touch`, `echo `or `nano` command, depending on your system.
  - Create a KeyPair. This is a key pair file which ends in the .pem extension. This file will allow a connection to the EC2 instance. 
  - Select this key pair and under the Value field select Show.This will reveal the content of your key pair. Copy its entire value (including the BEGIN and END header) and paste it in the .pem file in VSCode.
 Navigate to the EC2 console and identify the instance with your unique UserId. Select this instance, and under the Details section find the Key pair name and make a note of this. Save the previously created file in the VSCode using the following format: Key pair name.pem.
@@ -367,19 +369,20 @@ dbutils.fs.unmount("/mnt/mount_name")
 
 After cleaning the dataframes, insights can be polled by querying it. See the Databricks notebook for more. Examples are:
 
-![](C:\Users\External\Desktop\Images\Query1.png)
+![](Query1.png) 
 
+![](Query_7.png)
 
 # Batch processing: Orchestrating workloads with AWS MWAA
 
 
-MWAA was used to automate the process of running the batch processing on Databricks. The file 1215be80977f_dag.py is the Python code for a directed acyclic graph (DAG) that orchestrates the running of the batch processing notebook described above. The file was uploaded to the MWAA environment, where Airflow is utilised to connect to and run the Databricks notebook at scheduled intervals, in this case @daily.
+MWAA was used to automate the process of running the batch processing on Databricks. The dag.py file contains Python code for a directed acyclic graph (DAG) that orchestrates the running of the batch processing notebook described above. The file was uploaded to the MWAA environment, where Airflow is used to connect to and run the Databricks notebook at scheduled intervals, in this case daily.
 
 To automate batch processing on Databricks, AWS MWAA (managed Workflows for Apache Airflow) can be used. See the _dag.py file for the program to run this. Steps to do this are:
 
 
 - Create an API token in Databricks and initialize a connection between MWAA and Databricks.
-- Create an Airflow DAG that will trigger a Databricks Notebook to be run on a specific schedule. Here is daily.  This DAG should be uploaded to the dags folder in the mwaa-dags-bucket.
+- Create an Airflow DAG that will trigger a Databricks Notebook to be run on a specific schedule. Here is daily.    This DAG should be uploaded to the dags folder in the mwaa-dags-bucket.
  Make sure to give your DAG the correct name, otherwise permission errors will occur.  
 - Trigger the DAG you have uploaded in the previous step and check it runs successfully.
 
