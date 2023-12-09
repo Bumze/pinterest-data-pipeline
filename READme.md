@@ -341,7 +341,7 @@ The bucket is mounted only once. Once mounted it is accessible from Databricks a
 
 
 Next steps are:
-- Read the JSON format dataset from S3 into Databricks by using the spark.read.format(file_type) command with the infer schema option, then load the location. This creates a Spark dataframe with the dataset. This is created for the three topics.
+- Read the JSON format dataset from S3 into Databricks by using the `spark.read.format(file_type)` command with the infer schema option, then load the location. This creates a Spark dataframe with the dataset. This is created for the three topics.
 - Display the dataframes
 - Unmount S3 bucket. To unmount the S3 bucket, run the following code:
 
@@ -391,11 +391,11 @@ To automate batch processing on Databricks, AWS MWAA (managed Workflows for Apac
 AWS Kinesis can collect streaming data in real time or near real-time. Kinesis allows data processing and analysis as soon as it arrives, giving instant analytical insights. A Kinesis Data Stream is a set of Shards which is a uniquely identified sequence of data records in a stream. To implement it in this project;
 
 - Create three data streams for the three tables in the Amazon Kinesis console and then create an IAM role for API access to Kinesis.
-- In API Gateway console, open the previously created REST API, and create a new resource for the streams.  Configure a GET, POST, and DELETE method here.
-- Create two child resources 'record' and 'records' and configure a PUT method for both the child resources 
+- In API Gateway console, open the previously created REST API, and create a new resource for the streams.  Configure a `GET`, `POST`, and `DELETE` method here.
+- Create two child resources `'record'` and `'records'` and configure a `PUT` method for both the child resources 
 - Deploy the API, get a new invoke URL. This URL is used to extract data from Amazon RDS and store it in the respective Kinesis data streams.
 - Load into the Databricks as with the batch processing and create dataframes. 
-As the data is appended to the dataframe, it is presented in a serialized format and can be deserialized using .selectExpr("CAST(data as STRING)"). 
+As the data is appended to the dataframe, it is presented in a serialized format and can be deserialized using .`selectExpr("CAST(data as STRING)")`. 
 - Process the dataframes by cleaning them.
 - Extract necessary insights from the cleaned dataframes.
 
