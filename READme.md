@@ -4,7 +4,7 @@
 
 - Introduction
 - Project Brief
-- Project Dependencies
+- Project Requirements
 - Installation instructions
 - Usage instructions
 - File structure of the project 
@@ -16,7 +16,7 @@ This is a final project from the AIcore Data engineering programme. The project 
 
 ## Project Brief
 
-Pinterest crunches billions of data points every day to decide how to provide more value to their users. In this project, a similar system is created using the AWS Cloud infrastructure.
+Pinterest uses billions of data points every day to decide how to provide more value to their users. This project is a platform for a data engineer to create a system, an emulation of Pinterest data engineering processes to facilitate a data pipeline and data processing for batch and streaming data. It uses some Apache tools and the AWS Cloud infrastructure. 
 
 ## Project Requirements
 
@@ -28,11 +28,15 @@ Pinterest crunches billions of data points every day to decide how to provide mo
 - AWS API Gateway
 - AWS Managed Apache Airflow
 - AWS Kinesis
-- Python files - Two Pinterest events emulators, one for batch processing, written to populate event data in batches from an AWS RDS server and the other for streaming data processing.
+- [Apache Kafka](https://kafka.apache.org/) - From the Kafka [documentation](https://kafka.apache.org/documentation/):
+- For the data, two python files - Two Pinterest events emulators, one for batch processing, written to populate event data in batches from an AWS RDS server and the other for streaming data processing.
 - PySpark
+
+
 PySpark has many dependencies, not only with other Python packages, but also with other modules that are not easily installed using the convenient pip install command. Follow the next steps:
 
-Visit PySpark download page https://spark.apache.org/downloads.html and:
+
+- Visit PySpark download page https://spark.apache.org/downloads.html and:
 - Choose latest release
 - Download package locally
 - Create a folder (for example spark) in a directory that you know will be safe. ~/ is usually a good option.
@@ -41,37 +45,45 @@ Extract the files from the downloaded file into the created folder. At the time 
 
 ~/
 
-
 │
-
-
 ├── spark/
-
-
 │   └── spark-3.1.2-bin-hadoop3.2  <--- SPARK_HOME
-
-
 │         ├── bin
-
-
 │         ├── conf
-
-
 │         ├── data
-
 
 
 It is important to set the directory as SPARK_HOME, otherwise, PySpark won't know where to find the corresponding commands. To do so, set it as an environment variable copying the following command in your ~/.bashrc file:
 export SPARK_HOME=<path to your home directory>/spark/spark-3.1.2-bin-hadoop3.2
 
 Note: The command above depends on where you extracted the files you downloaded and the version
-Don't skip this step. Having an incorrectly set SPARK_HOME environment variable is the cause of many common issues with Spark
+Don't skip this step. Having an incorrectly set SPARK_HOME environment variable is the cause of many common issues with Spark.
 Save your ~/.bashrc. You should be able to use PySpark now! If not, try restarting vscode, then try restarting your computer if that doesn't work.
-To check if the installation was successful, you can install findspark (pip install findspark) and run the following cell
-- Install Java
+To check if the installation was successful, you can install findspark (pip install findspark) and run the following:
+
+```
+import findspark
+
+findspark.init() ```
+
+Next,
+
+
+- Install Java. Check if it is not installed first, if not use 
+
+```sudo apt-get install openjdk-11-jdk```
+
+to install and check for succesful installation by checking the version with `java -version`.
+
+
 - Get a Databricks account 
+- The project is completed in VScode, in an environment that is enabled with all dependencies to enable the above listed to function.
 
 ## Main 
+
+
+## Set up AWS account
+
 
 Set up the required AWS account, python file, and git hub.
   - Navigate to https://aws.amazon.com/  to sign in to the AWS Console.
@@ -82,20 +94,24 @@ Set up the required AWS account, python file, and git hub.
 
 Caution- Make sure to check you are in the correct region when using a new service while conducting the project
   
-## Set up a EC2 client machine locally.  
-Step 1: Create a .pen file locally.
-This is a key pair file which ends in the .pem extension. This file will allow a connection to the EC2 instance. To do this,
- - Navigate to Parameter Store in your AWS account.
- - Using your KeyPairId (you can locate this information within the email containing your AWS login credentials) find the specific key pair associated with your EC2 instance. Select this key pair and under the Value field select Show.This will reveal the content of your key pair. Copy its entire value (including the BEGIN and END header) and paste it in the .pem file in VSCode.
+## EC2 Instances
+An EC2 instance represents a virtual server in the cloud. It is a self-contained unit that includes virtual CPUs, memory, storage, and network interfaces.
 
-Step 2:
+### Set up a EC2 client machine locally.  
+
+
+To do this,
+
+
+1. Create a .pem file locally. Use `touch`, `echo `or `nano` command, depending on your system.
+ - Create a KeyPair. This is a key pair file which ends in the .pem extension. This file will allow a connection to the EC2 instance. 
+ - Select this key pair and under the Value field select Show.This will reveal the content of your key pair. Copy its entire value (including the BEGIN and END header) and paste it in the .pem file in VSCode.
 Navigate to the EC2 console and identify the instance with your unique UserId. Select this instance, and under the Details section find the Key pair name and make a note of this. Save the previously created file in the VSCode using the following format: Key pair name.pem.
 
 
-##  Connect to your EC2 instance.
+###  Connect to your EC2 instance.
 
-Follow the `Connect` instructions `(SSH client)` on the EC2 console to do this.
-Your AWS account has been provided with access to an IAM authenticated MSK cluster. You don't have to create your own cluster for this project.
+Follow the `Connect` instructions `(SSH client)` on the AWS EC2 console to do this.
 In order to connect to the IAM authenticated cluster, you will need to install the appropriate packages on your EC2 client machine.
 
 ## Set up Kafka on the EC2 instance
@@ -110,8 +126,10 @@ Install the IAM MSK authentication package on your client EC2 machine. This pack
 Step 3:
 Before you are ready to configure your EC2 client to use AWS IAM for cluster authentication, you will need to:
 
-Navigate to the IAM console on your AWS account
+Navigate to the IAM console on your AWS account.
 Here, on the left hand side select the Roles section
+
+
 You should see a list of roles, select the one with the following format: <your_UserId>-ec2-access-role
 Copy this role ARN and make a note of it, as we will be using it later for the cluster authentication
 Go to the Trust relationships tab and select Edit trust policy
