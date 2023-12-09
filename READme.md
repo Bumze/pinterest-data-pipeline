@@ -366,10 +366,11 @@ dbutils.fs.unmount("/mnt/mount_name")
 
 After cleaning the dataframes, insights can be polled by querying it. See the Databricks notebook for more. Examples are:
 
-![](Query1.png) 
+![](Images/Query1.png) 
 
-![](Query_7.png)
-<img src = "PINTEREST/Images/Query_7.png" width = "320" height = "150" />
+![](Images/Query_7.png)
+
+
 ## Batch processing: Orchestrating workloads with AWS MWAA
 
 
@@ -400,4 +401,4 @@ As the data is appended to the dataframe, it is presented in a serialized format
 
 Example of output from streaming data is below:
 
-![](Geo_data.png) 
+![](Images/Geo_data.png)
