@@ -191,9 +191,9 @@ Retrieve them using the MSK Management Console, as for this project you have not
 Step 2:
 The following three topics were created:
 
-<your_UserId>.pin for the Pinterest posts data
-<your_UserId>.geo for the post geolocation data
-<your_UserId>.user for the post user data
+0e35b2767ae1.pin for the Pinterest posts data
+0e35b2767ae1.geo for the post geolocation data
+0e35b2767ae1.user for the post user data
 
 
 Before running any Kafka commands, remember to make sure your CLASSPATH environment variable is set properly.
@@ -223,7 +223,7 @@ Steps:
 - Create a S3 bucket, an IAM role that allows you to write to the bucket or a VPC Endpoint to S3.
 - Go to the S3 console and select your bucket. Make a note of the bucket name, as you will need it in the other steps.
 - On your EC2 client, download the Confluent.io Amazon S3 Connector and copy it to your S3 bucket.
-- Create a custom plugin in the MSK Connect console. For this project my AWS account only has permissions to create a custom plugin with the following name: <my_UserId>-plugin. 
+- Create a custom plugin in the MSK Connect console. For this project my AWS account only has permissions to create a custom plugin with the following name: 0e35b2767ae1-plugin. 
 - Create a connector with MSK Connect. 
 
 
@@ -244,11 +244,7 @@ On Amazon API Gateway,
 
 
 - First, download and install the Confluent package for the Kafka REST Proxy on your EC2 client machine.
-
-
 - Allow the REST proxy to perform IAM authentication to the MSK cluster by modifying the kafka-rest.properties file.
-
-
 - Start the REST proxy on the EC2 client machine.
 
 
@@ -270,7 +266,6 @@ Check data is sent to the cluster by running a Kafka consumer (one per topic). I
 Step 3:
 
 Check if data is getting stored in the S3 bucket. The folder organization here will be topics/<your_UserId>.pin/partition=0/ that your connector creates in the bucket.
-
 
 
 # Batch processing with Databricks
@@ -298,6 +293,7 @@ Databricks is an integrated analytics environment powered by Apache Spark which 
   - Click the Download.csv file button to download the credentials you have just created.
 
 ## Upload credential csv file to Databricks
+
 In the Databricks UI, 
  - Click the Data icon and then click Create Table.
  - Click on Drop files to upload, or click to browse and select the credentials file you have just downloaded from AWS. Once the file has been successfully uploaded, you should see a green checkmark next to it.
