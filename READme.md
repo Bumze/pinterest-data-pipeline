@@ -21,7 +21,9 @@ Pinterest uses billions of data points every day to decide how to provide more v
 ### Project Requirements
 
 - Git hub
-- Amazon Web Services. AWS services used in the project are:
+- Linux Kernel (or WSL for Windows users), and Git Bash for code development in the terrminal.
+- Anaconda and Pip to create the required environment and install needed software dependencies.
+- Amazon Web Services. AWS services, accessible from the [AWS console](https://aws.amazon.com/console/) used in the project are:
 - AWS EC2 
 - AWS S3
 - AWS MSK
@@ -31,12 +33,12 @@ Pinterest uses billions of data points every day to decide how to provide more v
 - [Apache Kafka](https://kafka.apache.org/) - From the Kafka [documentation](https://kafka.apache.org/documentation/):
 - For the data, we need two python files, Pinterest events emulators, one for batch processing, written to populate event data in batches from an AWS RDS server and the other for streaming data processing.
 - PySpark 
-PySpark has many dependencies, not only with other Python packages, but also with other modules that are not easily installed using the convenient pip install command. Follow the next steps:
-- Visit PySpark download page https://spark.apache.org/downloads.html and:
-- Choose latest release
-- Download package locally
-- Create a folder (for example spark) in a directory that you know will be safe. ~/ is usually a good option.
-Extract the files from the downloaded file into the created folder. At the time of writing, the last version was Spark 3.1.2, so, in that case, your directory will look like this (in case you are using the same examples):
+   PySpark has many dependencies, not only with other Python packages, but also with other modules that are not easily installed using the convenient pip install command. Follow the next steps:
+  - Visit PySpark download page https://spark.apache.org/downloads.html and:
+  - Choose latest release
+  - Download package locally
+  - Create a folder (for example spark) in a directory that you know will be safe. ~/ is usually a good option.
+  Extract the files from the downloaded file into the created folder. At the time of writing, the last version was Spark 3.1.2, so, in that case, your directory will look like this (in case you are using the same examples):
 
 ```
 ~/
@@ -99,7 +101,7 @@ Set up the required AWS account, python file, and git hub.
 Caution- Make sure to check you are in the correct region when using a new service while conducting the project
   
 ### EC2 Instances
-An EC2 instance represents a virtual server in the cloud. It is a self-contained unit that includes virtual CPUs, memory, storage, and network interfaces.
+An EC2 instance represents a virtual server in the cloud. It is a self-contained unit that includes virtual CPUs, memory, storage, and network interfaces. For this project, I used Windows Subsystem for Linux (WSL) to install a Linux distribution- Ubuntu on my terminal. This is required for the Kafka to be installed.
 
 ### Set up an EC2 client machine locally.  
 
@@ -131,8 +133,6 @@ Once inside the EC2 client, install Java by running the following command:
 sudo yum install java-1.8.0 
 
 ```
-
-For this project, I used Windows Subsystem for Linux (WSL) to install a Linux distribution- Ubuntu on my terminal. This is required for the Kafka to be installed.
 
 - Install Kafka on your client EC2 machine. Get kafka from Apache website and untar on the EC2 client machine.
 
@@ -213,10 +213,7 @@ In the create topic Kafka command replace the BootstrapServerString with the val
 
 ## Batch processing
 
-An API is built in Amazon API Gateway that will send data to an S3 bucket. Then Amazon MSK Connect is used to connect MSK clusters to the S3 bucket so that data fromm the custers is saved in the S3 bucket. 
-
-Steps:
-
+An API is built in Amazon API Gateway that will send data to an S3 bucket. Then Amazon MSK Connect is used to connect MSK clusters to the S3 bucket so that data from the clusters is saved in the S3 bucket. To do this,
 
 - Create a S3 bucket, an IAM role that allows you to write to the bucket or a VPC Endpoint to S3.
 - Go to the S3 console and select your bucket. Make a note of the bucket name, as you will need it in the other steps.
