@@ -122,12 +122,8 @@ In order to connect to the IAM authenticated cluster, you will need to install t
 
 ### Set up Apache Kafka on the EC2 instance
 
-
-Step 1:
-
-- Connect to the EC2 client machine using the terminal.
-
-Once inside the EC2 client, install Java by running the following command:
+Step 1
+- Connect to the EC2 client machine using the terminal. Once inside the EC2 client, install Java by running the following command:
 
 ``` 
 sudo yum install java-1.8.0 
@@ -156,22 +152,22 @@ First, navigate to your Kafka installation folder and then to the libs folder. I
 To read more about this package, check out their Github repository: https://github.com/aws/aws-msk-iam-auth.
 
 Step 3:
-Before you are ready to configure your EC2 client to use AWS IAM for cluster authentication, you will need to:
+Before configuring the EC2 client to use AWS IAM for cluster authentication, you will need to:
 
 - Navigate to the IAM console on your AWS account.
 - Here, on the left hand side select the Roles section
 - You should see a list of roles, select the one with the following format: <your_UserId>-ec2-access-role
-- Copy this role ARN and make a note of it, as we will be using it later for the cluster authentication
+- Copy this role ARN and make a note of it, as you will be using it later for the cluster authentication
 - Go to the Trust relationships tab and select Edit trust policy
 - Click on the Add a principal button and select IAM roles as the Principal type
 - Replace ARN with the <your_UserId>-ec2-access-role ARN you have just copied
 
 
-By following the steps above you will be able to now assume the <your_UserId>-ec2-access-role, which contains the necessary permissions to authenticate to the MSK cluster.
+By following the steps above, the <your_UserId>-ec2-access-role, which contains the necessary permissions to authenticate to the MSK cluster is assumed.
 
 
 Step 4:
-- Configure your Kafka client to use AWS IAM authentication to the cluster. To do this, you will need to modify the client.properties file, inside the kafka_folder/bin directory accordingly.
+- Configure your Kafka client to use AWS IAM authentication to the cluster. To do this, modify the client.properties file, inside the kafka_folder/bin directory accordingly. 
 
 
 ### Create Kafka topics
@@ -180,10 +176,7 @@ Step 4:
 Step 1:
 
 
-To create a topic, you will first need to retrieve some information about the MSK cluster, specifically: the Bootstrap servers string and the Plaintext Apache Zookeeper connection string. Make a note of these strings, as they will be needed in the next step.
-
-
-Retrieve them using the MSK Management Console, as for this project you have not been provided with login credentials for the AWS CLI, so you will not be able to retrieve this information using the CLI.
+- To create a topic, retrieve some information about the MSK cluster, specifically: the *Bootstrap servers string* and the *Plaintext Apache Zookeeper connection string*. Make a note of these strings, as they will be needed in the next step.This can be retreived with the MSK Management Console or by using the AWS CLI.
 
 
 Step 2:
@@ -194,12 +187,10 @@ The following three topics were created:
 0e35b2767ae1.user for the post user data
 
 
-Before running any Kafka commands, remember to make sure your CLASSPATH environment variable is set properly.
+Before running any Kafka commands, CLASSPATH environment variable must be set properly.
 
 
-In the create topic Kafka command replace the BootstrapServerString with the value you have obtained in the previous step.
-
- Create topics with the exact names specified on the MSK cluster. Follow the format, otherwise you will run into permission errors.
+In the create topic Kafka command replace the `BootstrapServerString` with the value you have obtained in the previous step.Topics muat be the exact names specified on the MSK cluster. Follow the format, otherwise you will run into permission errors.
 
 
 - Building the pipeline
@@ -207,7 +198,7 @@ In the create topic Kafka command replace the BootstrapServerString with the val
     - Create a client machine for the cluster
     - Enable client machine to connect to the cluster
     - Install Kafka on the client machine
-    - Create topics on the Kafka cluster. Three topics were created, a pin 
+    - Create topics on the Kafka cluster. Three topics were created, a pin, a user data and a geo location data pin.
     - Deliver messages to the Kafka cluster using the API gateway
 
 
@@ -314,7 +305,7 @@ The steps are as follows:
  `dbutils.fs.ls(“/FileStore/tables”)`
 
 
- The CSV file uploaded earlier should now be inside the FileStore tables folder.
+ The CSV file uploaded earlier should now be inside the FileStore tables folder. 
  
 
  - Import the pyspark functions and URL processing libraries 
