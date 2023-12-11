@@ -33,7 +33,7 @@ Pinterest uses billions of data points every day to decide how to provide more v
 - [Apache Kafka](https://kafka.apache.org/) - From the Kafka [documentation](https://kafka.apache.org/documentation/):
 - For the data, we need two python files, Pinterest events emulators, one for batch processing, written to populate event data in batches from an AWS RDS server and the other for streaming data processing.
 - PySpark 
-   PySpark has many dependencies, not only with other Python packages, but also with other modules that are not easily installed using the convenient pip install command. Follow the next steps:
+   PySpark has many dependencies, not only with other Python packages, but also with other modules that are not easily installed using the convenient pip install command.To install it, follow these steps:
   - Visit PySpark download page https://spark.apache.org/downloads.html and:
   - Choose latest release
   - Download package locally
@@ -52,7 +52,7 @@ Pinterest uses billions of data points every day to decide how to provide more v
 
  ```
 
-It is important to set the directory as SPARK_HOME, otherwise, PySpark won't know where to find the corresponding commands. To do so, set it as an environment variable copying the following command in your ~/.bashrc file:
+It is important to set the directory as SPARK_HOME, otherwise, PySpark will not know where to find the corresponding commands. To do so, set it as an environment variable copying the following command in your ~/.bashrc file:
 
 ```
 export SPARK_HOME=<path to your home directory>/spark/spark-3.1.2-bin-hadoop3.2
@@ -84,7 +84,7 @@ Next,
 to install and check for succesful installation by checking the version with `java -version`.
 
 Then
-- Get a Databricks account 
+- Get a Databricks account. 
 - The project is completed in VScode, in an environment that is enabled with all dependencies to enable the above listed to function.
 
 
@@ -118,7 +118,11 @@ Navigate to the EC2 console and identify the instance with your unique UserId. S
 ###  Connect to your EC2 instance.
 
 Follow the `Connect` instructions `(SSH client)` on the AWS EC2 console to do this.
-In order to connect to the IAM authenticated cluster, you will need to install the appropriate packages on your EC2 client machine.
+In order to connect to the IAM authenticated cluster, you will need to install the appropriate packages on your EC2 client machine. It would look like this:
+
+![](Images/ec2_client.png)
+
+<img src="Images/ec2_client.png" width="100" height="50">
 
 ### Set up Apache Kafka on the EC2 instance
 
@@ -180,11 +184,14 @@ Step 1:
 
 
 Step 2:
+
+
 The following three topics were created:
 
-0e35b2767ae1.pin for the Pinterest posts data
-0e35b2767ae1.geo for the post geolocation data
-0e35b2767ae1.user for the post user data
+
+1.  0e35b2767ae1.pin for the Pinterest posts data
+2.  0e35b2767ae1.geo for the post geolocation data
+3.  0e35b2767ae1.user for the post user data
 
 
 Before running any Kafka commands, CLASSPATH environment variable must be set properly.
