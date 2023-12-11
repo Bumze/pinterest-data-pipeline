@@ -86,7 +86,7 @@ Next,
 
 to install and check for succesful installation by checking the version with `java -version`.
 
-Then
+
 - Get a Databricks account. 
 - The project is completed in VScode, in an environment that is enabled with all dependencies to enable the above listed to function.
 
@@ -147,15 +147,16 @@ Set up the security rules for the EC2 instance to allow communication with the M
 
 
 Step 2:
-Install the IAM MSK authentication package on your client EC2 machine. This package is necessary to connect to MSK clusters support IAM authentication. IAM access control allows MSK to enable both authentication and authorization for clusters. This means, that if a client tries to write something to the cluster, MSK uses IAM to check whether the client is an authenticated identity and also whether it is authorized to produce to the cluster.
 
-To connect to a cluster that uses IAM authentication, follow these additional steps before a topic can be created on the client machine.
+Install the IAM MSK authentication package on your client EC2 machine. This package is necessary to connect to MSK clusters support IAM authentication. IAM access control allows MSK to enable both authentication and authorization for clusters. This means, that if a client tries to write something to the cluster, MSK uses IAM to check whether the client is an authenticated identity and also whether it is authorized to produce to the cluster. 
 
-First, navigate to your Kafka installation folder and then to the libs folder. Inside here, download the IAM MSK authentication package from Github, using the following command:
+To connect to a cluster that uses IAM authentication, 
+- Navigate to your Kafka installation folder and then to the libs folder. Inside here, download the IAM MSK authentication package from Github, using the following command:
 
 `wget https://github.com/aws/aws-msk-iam-auth/releases/download/v1.1.5/aws-msk-iam-auth-1.1.5-all.jar`
 
 To read more about this package, check out their Github repository: https://github.com/aws/aws-msk-iam-auth.
+
 
 Step 3:
 Before configuring the EC2 client to use AWS IAM for cluster authentication, you will need to:
