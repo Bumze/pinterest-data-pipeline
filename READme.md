@@ -120,9 +120,8 @@ Navigate to the EC2 console and identify the instance with your unique UserId. S
 Follow the `Connect` instructions `(SSH client)` on the AWS EC2 console to do this.
 In order to connect to the IAM authenticated cluster, you will need to install the appropriate packages on your EC2 client machine. It would look like this:
 
-![](Images/ec2_client.png)
+<img src="Images/ec2_client.png" width="300" height="100">
 
-<img src="Images/ec2_client.png" width="100" height="50">
 
 ### Set up Apache Kafka on the EC2 instance
 
