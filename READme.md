@@ -16,9 +16,10 @@ This is a final project from the AIcore Data engineering programme. The project 
 
 ### Project Brief
 
-Pinterest uses billions of data points every day to decide how to provide more value to their users. This project is a platform for a data engineer to create a system, an emulation of Pinterest data engineering processes to facilitate a data pipeline and data processing for batch and streaming data. It uses some Apache tools and the AWS Cloud infrastructure. The architecture overview is below
+Pinterest uses billions of data points every day to decide how to provide more value to their users. This project is a platform for a data engineer to create a system, an emulation of Pinterest data engineering processes to facilitate a data pipeline and data processing for batch and streaming data. It uses some Apache tools and the AWS Cloud infrastructure. The architecture overview is below:
 
-![](Images/architecture_overview.png)
+<img src="Images/architecture_overview.png" width="400" height="300">
+
 
 ### Project Requirements
 
